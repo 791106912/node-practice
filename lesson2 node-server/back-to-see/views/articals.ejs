@@ -1,0 +1,11 @@
+<%- include('head.ejs') %>
+<ul>
+    <% articals.forEach(d => { %>
+        <li>
+            <a href='/article/<%= d.id %>'>
+                <%= d.title %>
+            </a>
+        </li>
+    <% }) %>
+</ul>
+<%- include('foot.ejs') %>
