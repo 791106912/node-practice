@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var entryRouter = require('./routes/entries');
+const { lengthAbove, required } = require('./middleware/validate');
 
 var app = express();
 
@@ -43,8 +44,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
-app.get('/post', entryRouter.form);
-app.post('/post', entryRouter.submit);
+app.get('/post', 
+  entryRouter.form,
+);
+app.post('/post', 
+  required(['title', 'body']),
+  lengthAbove({title: 5}),
+  entryRouter.submit
+);
 app.get('/list', entryRouter.list);
 
 
