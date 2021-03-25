@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var entryRouter = require('./routes/entries');
 const { lengthAbove, required } = require('./middleware/validate');
@@ -53,6 +52,8 @@ app.post('/post',
   entryRouter.submit
 );
 app.get('/list', entryRouter.list);
+
+app.get('/login', usersRouter.login)
 
 
 // catch 404 and forward to error handler
