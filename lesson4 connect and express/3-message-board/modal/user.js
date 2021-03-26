@@ -47,7 +47,7 @@ class User {
         bcrypt.genSalt(12, (err, salt) => {
             if (err) return cb(err)
             this.salt = salt
-            bcrypt.hash(this.pass, this.save, (err, hash) => {
+            bcrypt.hash(this.pass, this.salt, (err, hash) => {
                 if (err) return cb(err)
                 this.pass = hash
                 cb()
@@ -65,7 +65,7 @@ class User {
     }
 
     static getId(name, cb) {
-        db.get(`users:id:${name}`, cb)
+        db.get(`user:id:${name}`, cb)
     }
 
     static get(id, cb) {
