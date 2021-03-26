@@ -14,7 +14,10 @@ exports.submit = (req, res) => {
     if (err) return next(err)
     if (user) {
       console.log(req.session)
-      req.session.uid = user.id
+      req.session.regenerate(function(err) {
+        if (err) return next(err);
+        req.session.uid = user.id
+    });
       res.redirect('/list')
     } else {
       console.log('not  true')
